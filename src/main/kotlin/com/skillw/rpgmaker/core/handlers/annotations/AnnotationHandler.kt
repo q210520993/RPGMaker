@@ -6,7 +6,7 @@ import java.lang.reflect.Field
 import java.lang.reflect.Method
 import kotlin.annotation.AnnotationTarget.*
 
-abstract class AnnotationHandler<V : Annotation>(private val pack: String = "com.skillw.rpgmaker", autoInit: Boolean = true): Handler {
+abstract class AnnotationHandler<V : Annotation>(private val pack: String = "com.skillw.rpgmaker"): Handler {
 
     abstract val annotation: Class<V>
 
@@ -14,8 +14,8 @@ abstract class AnnotationHandler<V : Annotation>(private val pack: String = "com
         getTargets()
     }
 
-    val Fields: HashSet<Field> = hashSetOf()
-    val Methods: HashSet<Method> = hashSetOf()
+    val fields: HashSet<Field> = hashSetOf()
+    val methods: HashSet<Method> = hashSetOf()
     val classes: HashSet<Class<*>> = hashSetOf()
 
     private fun getAnnotationTargets(): Set<AnnotationTarget> {
@@ -31,12 +31,12 @@ abstract class AnnotationHandler<V : Annotation>(private val pack: String = "com
                  }
                 FIELD -> {
                     ClassUtil.getClasses(pack).forEach {
-                        Fields.addAll(ClassUtil.getAnnotationMember(it, annotation))
+                        fields.addAll(ClassUtil.getAnnotationMember(it, annotation))
                     }
                 }
                 FUNCTION -> {
                     ClassUtil.getClasses(pack).forEach {
-                        Methods.addAll(ClassUtil.getAnnotationMethod(it, annotation))
+                        methods.addAll(ClassUtil.getAnnotationMethod(it, annotation))
                     }
                 }
                 else -> {}

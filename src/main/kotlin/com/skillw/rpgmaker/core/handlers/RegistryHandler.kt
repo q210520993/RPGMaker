@@ -5,7 +5,9 @@ import com.skillw.rpgmaker.core.handlers.annotations.AutoRegistry
 import com.skillw.rpgmaker.core.map.component.Registrable
 import com.skillw.rpgmaker.util.instance
 
-class RegistryHandler(pack: String = "com.skillw.rpgmaker", autoInit: Boolean = true) : AnnotationHandler<AutoRegistry>(pack, autoInit) {
+class RegistryHandler(pack: String = "com.skillw.rpgmaker", override val autoInit: Boolean = true) : AnnotationHandler<AutoRegistry>(
+    pack
+),AutoInit {
 
     override val annotation: Class<AutoRegistry> = AutoRegistry::class.java
 
