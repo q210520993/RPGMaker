@@ -161,7 +161,7 @@ object ClassUtil {
      * @return Set<Class<*>>
      */
 
-    fun isAnnotationPresent(pack: String, annotation: Class<out Annotation>): Set<Class<*>> {
+    fun getAnnotationClass(pack: String, annotation: Class<out Annotation>): Set<Class<*>> {
         return getClasses(pack).filter {
             it.isAnnotationPresent(annotation)
         }.toSet()

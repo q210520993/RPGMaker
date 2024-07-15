@@ -1,7 +1,23 @@
 package com.skillw.rpgmaker.server
 
-import com.skillw.rpgmaker.core.handlers.annotations.AutoRegistry
-import com.skillw.rpgmaker.core.handlers.awake.AwakeHandler
+import com.skillw.rpgmaker.utils.handler
+import net.minestom.server.MinecraftServer
 
-@AutoRegistry
-object SimpleAwake: AwakeHandler()
+class RPGMaker(val minecraftServer: MinecraftServer) {
+
+    private fun handlerInit() {
+        handler(
+            "com.skillw.rpgmaker",
+            setOf(
+                "com.skillw.rpgmaker.server",
+                "com.skillw.rpgmaker.utils"
+            )
+        )
+    }
+
+    fun init() {
+        handlerInit()
+        minecraftServer.start("127.0.0.1", 25565)
+    }
+
+}

@@ -7,6 +7,6 @@ val Class<*>.instance: Any?
         this.getDeclaredField("INSTANCE").get(null)
     } catch (_: NoSuchFieldException) {
         safe {
-            this.kotlin.createInstance()
+            this.newInstance()
         }
     }

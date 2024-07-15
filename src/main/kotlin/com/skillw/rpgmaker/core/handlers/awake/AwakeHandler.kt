@@ -8,14 +8,16 @@ import com.skillw.rpgmaker.core.map.component.Registrable
 import java.lang.reflect.Method
 import java.util.*
 
-open class AwakeHandler(pack: String = "com.skillw.rpgmaker", override val autoInit: Boolean = true) : AnnotationHandler<Awake>(
-    pack
-), AutoInit, Registrable<String> {
+class AwakeHandler(
+    pack: String = "com.skillw.rpgmaker",
+    override val autoInit: Boolean = true
+) : AnnotationHandler<Awake>(pack), AutoInit, Registrable<String> {
 
     override val key: String = pack
     override val annotation: Class<Awake> = Awake::class.java
     val isLoadedMethods = BaseMap<AwakeType, LinkedList<AwakeMethod>>()
 
+    //拿到所有执行过的Method
     fun getExecedMethods(): Set<Method> {
         val set = LinkedHashSet<Method>()
         isLoadedMethods.forEach { (_, value) ->
@@ -29,7 +31,6 @@ open class AwakeHandler(pack: String = "com.skillw.rpgmaker", override val autoI
     }
 
     init {
-
         handleAnnotation()
         AwakeType.entries.forEach {
             isLoadedMethods[it] = LinkedList()
@@ -37,9 +38,15 @@ open class AwakeHandler(pack: String = "com.skillw.rpgmaker", override val autoI
         if (autoInit) {
             handle()
         }
-        println(isLoadedMethods)
     }
 
+    fun exec() {
+        isLoadedMethods.forEach{(_, value) ->
+            value.forEach {
+                it.exec()
+            }
+        }
+    }
 
     //排序操作
     private fun sort() {
