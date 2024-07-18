@@ -8,16 +8,17 @@ class RPGMaker(val minecraftServer: MinecraftServer) {
     private fun handlerInit() {
         handler(
             "com.skillw.rpgmaker",
-            setOf(
+            filterPack = setOf(
                 "com.skillw.rpgmaker.server",
                 "com.skillw.rpgmaker.utils"
             )
         )
     }
-
     fun init() {
+
         handlerInit()
         minecraftServer.start("127.0.0.1", 25565)
+
     }
 
 }

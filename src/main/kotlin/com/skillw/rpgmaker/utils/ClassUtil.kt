@@ -191,5 +191,13 @@ object ClassUtil {
         }.toSet()
     }
 
+    fun Class<*>.isSingle(): Boolean {
+        try {
+            this.getDeclaredField("INSTANCE").get(null) != null
+            return true
+        } catch (e: Exception) {
+            return false
+        }
+    }
 
 }

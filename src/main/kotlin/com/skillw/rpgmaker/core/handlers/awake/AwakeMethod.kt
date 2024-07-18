@@ -1,6 +1,7 @@
 package com.skillw.rpgmaker.core.handlers.awake
 
 import com.skillw.rpgmaker.core.handlers.annotations.Awake
+import com.skillw.rpgmaker.utils.run
 import java.lang.reflect.Method
 
 class AwakeMethod(
@@ -17,7 +18,7 @@ class AwakeMethod(
     }
 
     fun exec() {
-        method.invoke(null).also { isExec = true }
+        method.run().also { isExec = true }
     }
 
 }

@@ -11,14 +11,14 @@ import java.util.*
 class AwakeHandler(
     pack: String = "com.skillw.rpgmaker",
     override val autoInit: Boolean = true
-) : AnnotationHandler<Awake>(pack), AutoInit, Registrable<String> {
+) : AnnotationHandler<Awake>(), AutoInit, Registrable<String> {
 
     override val key: String = pack
     override val annotation: Class<Awake> = Awake::class.java
     val isLoadedMethods = BaseMap<AwakeType, LinkedList<AwakeMethod>>()
 
     //拿到所有执行过的Method
-    fun getExecedMethods(): Set<Method> {
+    fun getExecMethods(): Set<Method> {
         val set = LinkedHashSet<Method>()
         isLoadedMethods.forEach { (_, value) ->
             value.filter {

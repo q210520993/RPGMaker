@@ -7,9 +7,7 @@ import java.lang.reflect.Field
 import java.lang.reflect.Method
 import kotlin.annotation.AnnotationTarget.*
 
-abstract class AnnotationHandler<V : Annotation>(
-    private val pack: String = "com.skillw.rpgmaker",
-): Handler {
+abstract class AnnotationHandler<V : Annotation>: Handler {
 
     abstract val annotation: Class<V>
 
