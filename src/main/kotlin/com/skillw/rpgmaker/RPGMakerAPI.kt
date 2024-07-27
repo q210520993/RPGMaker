@@ -19,7 +19,7 @@ object RPGMakerAPI {
      * @return 添加的事件节点 [EventNode]
      */
     fun <T : Event> addSimpleListener(listener: EventListener<T>): EventNode<Event> {
-        return addSimpleListener<T>(listener = listener, eventPriority = EventPriority.NORMAL)
+        return addSimpleListener(listener, EventPriority.NORMAL)
     }
 
     /**

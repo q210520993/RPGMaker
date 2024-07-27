@@ -1,6 +1,8 @@
 package com.skillw.rpgmaker.core.handlers.event
 
-enum class EventPriority(val priority: Int) {
+import com.skillw.rpgmaker.core.Priority
+
+enum class EventPriority(override val priority: Int): Priority<Int> {
 
     LOWEST(-24),
     LOW(-12),

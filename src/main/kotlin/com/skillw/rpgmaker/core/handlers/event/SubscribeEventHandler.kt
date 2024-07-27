@@ -3,7 +3,6 @@ package com.skillw.rpgmaker.core.handlers.event
 import com.skillw.rpgmaker.RPGMakerAPI
 import com.skillw.rpgmaker.core.handlers.Handler
 import com.skillw.rpgmaker.core.handlers.annotations.AnnotationHandler
-import com.skillw.rpgmaker.util.instance
 import com.skillw.rpgmaker.utils.ClassUtil.isSingle
 import com.skillw.rpgmaker.utils.run
 import net.minestom.server.event.Event

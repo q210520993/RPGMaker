@@ -9,5 +9,8 @@ package com.skillw.rpgmaker.core.map.component
  * 可注册的类
  */
 interface Registrable<K> : Keyable<K> {
+
     fun register()
+
+    fun unregister() {}
 }

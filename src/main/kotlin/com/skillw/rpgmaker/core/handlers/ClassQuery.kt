@@ -54,7 +54,6 @@ open class ClassQuery(
             functions.addAll(value.handlerPostMethods)
             Cache.classes.addAll(value.handlerPostClasses)
             Cache.fields.addAll(value.handlerPostFields)
-            println(12)
         }
     }
 

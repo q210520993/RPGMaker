@@ -1,13 +1,16 @@
 package com.skillw.rpgmaker.utils
 
 import com.skillw.rpgmaker.core.handlers.ClassQuery
-import com.skillw.rpgmaker.core.handlers.RegistryHandler
+import com.skillw.rpgmaker.core.handlers.registry.RegistryHandler
 import com.skillw.rpgmaker.core.handlers.awake.AwakeHandler
 import com.skillw.rpgmaker.core.handlers.awake.AwakeManager
 import com.skillw.rpgmaker.core.handlers.awake.AwakeType
 import com.skillw.rpgmaker.core.handlers.event.SubscribeEventHandler
 
-fun handler(pack: String = "com.skillw.rpgmaker", filterPack: Set<String> = emptySet()) {
+@Synchronized
+fun handler(pack: String = "com.skillw.rpgmaker",
+            filterPack: Set<String> = emptySet()
+) {
     val query = ClassQuery(pack, filterPack)
     query.register()
 
