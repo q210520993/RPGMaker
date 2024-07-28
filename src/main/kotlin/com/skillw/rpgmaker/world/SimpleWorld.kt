@@ -1,15 +1,21 @@
 package com.skillw.rpgmaker.world
 
 import com.skillw.rpgmaker.core.map.component.Registrable
-import com.skillw.rpgmaker.manager.sub.WorldManager
 import com.skillw.rpgmaker.manager.sub.WorldManagerImpl
+import net.minestom.server.MinecraftServer
 import net.minestom.server.instance.Instance
 
-class SimpleWorld(val instance: Instance, override val key: WorldInfo): RPGWorld(instance), Registrable<WorldInfo> {
+class SimpleWorld(val instance: Instance, val worldInfo: WorldInfo): RPGWorld(instance), Registrable<String> {
+
+    override val key: String = worldInfo.name
 
     override fun register() {
         WorldManagerImpl.register(this)
-        WorldManagerImpl.Worlds.register(key.name, this)
+    }
+
+    override fun unregister() {
+        MinecraftServer.getInstanceManager().unregisterInstance(instance)
+        WorldManagerImpl.remove(worldInfo.name)
     }
 
 }

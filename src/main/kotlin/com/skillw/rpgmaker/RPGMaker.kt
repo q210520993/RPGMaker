@@ -4,11 +4,10 @@ import com.skillw.rpgmaker.core.handlers.awake.AwakeManager
 import com.skillw.rpgmaker.core.handlers.awake.AwakeType
 import com.skillw.rpgmaker.event.init.ManagerInit
 import com.skillw.rpgmaker.manager.ManagerData
+import com.skillw.rpgmaker.system.ServerProperties
+import com.skillw.rpgmaker.utils.ResourceUtil
 import com.skillw.rpgmaker.utils.handler
-import com.skillw.rpgmaker.world.WorldInfo
 import net.minestom.server.MinecraftServer
-import taboolib.module.configuration.Configuration
-import taboolib.module.configuration.Type
 import java.io.File
 
 class RPGMaker(private val minecraftServer: MinecraftServer) {
@@ -34,19 +33,28 @@ class RPGMaker(private val minecraftServer: MinecraftServer) {
             "com.skillw.rpgmaker",
             filterPack = setOf(
                 "com.skillw.rpgmaker.server",
-                "com.skillw.rpgmaker.utils"
+                "com.skillw.rpgmaker.utils",
+                "com.skillw.rpgmaker.world",
             )
         )
     }
     fun init() {
 
+        //加载基本的注解处理
         handlerInit()
+        //加载manager
         managerLoader()
+        //释放文件 初始化serverProperties
+        ResourceUtil.extractResource("server.properties")
+        val serverProperties = ServerProperties(File("./server.properties"))
+        RPGMakerInstance.serverProperties = serverProperties
+
+
 
         RPGMakerInstance.allManagers.forEach { (_, value) -> value.onEnable()}
         AwakeManager.execAll(AwakeType.Enable)
         MinecraftServer.getSchedulerManager().buildShutdownTask { AwakeManager.execAll(AwakeType.Disable) }
-        minecraftServer.start("127.0.0.1", 25565)
+        minecraftServer.start(serverProperties.get("server-ip"), serverProperties.get("server-port").toInt())
         AwakeManager.execAll(AwakeType.Active)
     }
 }

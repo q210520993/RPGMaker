@@ -23,7 +23,7 @@ class ServerProperties() {
     @Throws(IOException::class)
     constructor(source: String?) : this() {
         properties = Properties()
-        properties.load(StringReader(source))
+        properties.load(source?.let { StringReader(it) })
         this.source = null
     }
 
@@ -37,8 +37,11 @@ class ServerProperties() {
 
     @Throws(IOException::class)
     private fun loadDefault() {
-        InputStreamReader(Objects.requireNonNull(ServerProperties::class.java.getResourceAsStream("/server.properties.default"))).use { defaultInput ->
-            properties.load(defaultInput)
+        source?.let {
+            val reader = FileReader(it)
+            reader.use { er->
+                properties.load(er)
+            }
         }
     }
 

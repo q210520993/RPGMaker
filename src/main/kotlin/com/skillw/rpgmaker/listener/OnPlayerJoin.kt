@@ -10,7 +10,7 @@ import net.minestom.server.event.player.PlayerSpawnEvent
 object OnPlayerJoin {
     @SubscribeEvent
     fun onJoin(event: AsyncPlayerConfigurationEvent) {
-        event.spawningInstance = WorldManagerImpl.Worlds["FirstWorld"]?.instance
+        event.spawningInstance = WorldManagerImpl["FirstWorld"]?.instance
         event.player.gameMode = GameMode.CREATIVE
     }
 

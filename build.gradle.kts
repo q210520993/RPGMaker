@@ -23,6 +23,7 @@ dependencies {
     implementation("com.electronwill.night-config:json:3.6.7")
     implementation("com.electronwill.night-config:hocon:3.6.7")
     implementation("com.electronwill.night-config:core-conversion:6.0.0")
+    implementation("ch.qos.logback:logback-classic:1.5.6")
     //reflex
     // 本体
     implementation("org.tabooproject.reflex:analyser:1.0.23")

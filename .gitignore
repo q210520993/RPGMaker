@@ -1,4 +1,7 @@
 .gradle
+.idea
+worlds
+server.properties
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
