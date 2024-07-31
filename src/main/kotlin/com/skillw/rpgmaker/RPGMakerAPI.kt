@@ -38,7 +38,6 @@ object RPGMakerAPI {
         if (child.size == 1) {
             return child[0].addListener(listener)
         }
-
         // 找到与指定优先级匹配的事件节点并添加监听器
         return child.filter {
             it.priority == eventPriority.priority

@@ -3,6 +3,7 @@ package com.skillw.rpgmaker.manager.sub
 import com.skillw.rpgmaker.RPGMakerInstance.reg
 import com.skillw.rpgmaker.core.handlers.annotations.AutoRegistry
 import com.skillw.rpgmaker.core.map.KeyMap
+import com.skillw.rpgmaker.launcher.LoggerColor
 import com.skillw.rpgmaker.utils.ResourceUtil
 import com.skillw.rpgmaker.world.SimpleWorld
 import com.skillw.rpgmaker.world.WorldInfo
@@ -37,6 +38,10 @@ object WorldManagerImpl: WorldManager, KeyMap<String, SimpleWorld>() {
         }
     }
 
+    override fun onEnable() {
+        logger.info("${LoggerColor.GREEN}WorldManager is enabled!${LoggerColor.RESET}")
+    }
+
     /**
      * 从指定文件加载世界。
      *
@@ -56,7 +61,6 @@ object WorldManagerImpl: WorldManager, KeyMap<String, SimpleWorld>() {
                 val config = Configuration.loadFromFile(theFile)
                 // 反序列化配置文件为 WorldInfo 对象
                 worldInfo = Configuration.deserialize<WorldInfo>(config, ignoreConstructor = true)
-                println(worldInfo)
             }
         }
         // 检查 WorldInfo 是否为空
@@ -65,15 +69,16 @@ object WorldManagerImpl: WorldManager, KeyMap<String, SimpleWorld>() {
         val instance = MinecraftServer.getInstanceManager().createInstanceContainer()
         // 设置区块加载器
         instance.chunkLoader = AnvilLoader(file.path)
+
         // 注册世界
         SimpleWorld(instance, worldInfo!!).register()
     }
-
 
     override fun onDisable() {
         WorldManagerImpl.filter {
             !it.value.worldInfo.unSave
         }.forEach {
+
             it.value.instance.saveInstance()
         }
     }

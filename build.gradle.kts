@@ -11,6 +11,7 @@ repositories {
     mavenCentral()
     maven("https://jitpack.io")
     maven { url = uri("https://repo.tabooproject.org/repository/releases/") }
+    maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots/") }
 }
 
 dependencies {
@@ -39,10 +40,22 @@ dependencies {
     // https://mvnrepository.com/artifact/net.minestom/minestom-snapshots
     implementation("net.minestom:minestom-snapshots:edb73f0a5a")
     implementation("com.github.Minestom:DependencyGetter:v1.0.1")
+    implementation("com.google.protobuf:protobuf-javalite:4.27.1")
+    implementation("net.bytebuddy:byte-buddy-agent:1.14.17")
+    implementation("me.lucko:bytesocks-java-client:1.0-SNAPSHOT") {
+        exclude("slf4j-api")
+    }
     implementation("dev.hollowcube:minestom-ce-extensions:1.2.0")
-    implementation("dev.hollowcube:polar:1.11.0")
+    implementation("dev.hollowcube:polar:1.11.1")
+    implementation(fileTree("libs"))
     //kotlin
     implementation(kotlin("reflect"))
+
+    implementation("net.kyori:adventure-text-feature-pagination:4.0.0-SNAPSHOT") {
+        exclude("adventure-api")
+    }
+
+
 
 }
 

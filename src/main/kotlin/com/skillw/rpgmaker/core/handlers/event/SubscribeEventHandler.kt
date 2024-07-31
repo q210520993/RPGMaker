@@ -23,9 +23,7 @@ class SubscribeEventHandler :
      */
     override fun handle() {
         handleAnnotation()
-
         methods.forEach { function ->
-            println(function.declaringClass.isSingle())
 
             // 验证参数类型
             if (!Event::class.java.isAssignableFrom(function.parameterTypes[0])) {
@@ -46,7 +44,6 @@ class SubscribeEventHandler :
                     function.run(it)
                 }.
                 build()
-
             // 使用 RPGMakerAPI 注册监听器
             RPGMakerAPI.addSimpleListener(listener, priority)
         }

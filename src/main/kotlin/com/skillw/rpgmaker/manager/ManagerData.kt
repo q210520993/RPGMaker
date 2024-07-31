@@ -25,15 +25,12 @@ class ManagerData(override val key: String): KeyMap<String, Manager>(), Registra
         register()
     }
 
-    fun onLoad() {
+    fun load() {
         managers.forEach {
-            safe(it::onLoad)
-        }
-    }
-
-    fun onEnable() {
-        managers.forEach {
-            safe(it::onEnable)
+            safe {
+                it.onLoad()
+                it.onEnable()
+            }
         }
     }
 

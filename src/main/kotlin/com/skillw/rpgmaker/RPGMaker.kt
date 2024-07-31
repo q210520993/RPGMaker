@@ -1,5 +1,7 @@
 package com.skillw.rpgmaker
 
+import ch.qos.logback.core.spi.LifeCycle
+import com.skillw.rpgmaker.core.handlers.annotations.Awake
 import com.skillw.rpgmaker.core.handlers.awake.AwakeManager
 import com.skillw.rpgmaker.core.handlers.awake.AwakeType
 import com.skillw.rpgmaker.event.init.ManagerInit
@@ -17,7 +19,7 @@ class RPGMaker(private val minecraftServer: MinecraftServer) {
     //manager进入初始化阶段
     private fun managerLoader() {
         RPGMakerInstance.allManagers.forEach { (_, value) ->
-            value.onLoad()
+            value.load()
         }
         ManagerInit()
     }
@@ -50,11 +52,16 @@ class RPGMaker(private val minecraftServer: MinecraftServer) {
         RPGMakerInstance.serverProperties = serverProperties
 
 
-
-        RPGMakerInstance.allManagers.forEach { (_, value) -> value.onEnable()}
         AwakeManager.execAll(AwakeType.Enable)
         MinecraftServer.getSchedulerManager().buildShutdownTask { AwakeManager.execAll(AwakeType.Disable) }
         minecraftServer.start(serverProperties.get("server-ip"), serverProperties.get("server-port").toInt())
         AwakeManager.execAll(AwakeType.Active)
+    }
+}
+
+@Awake(AwakeType.Disable, priority = -1F)
+fun disableManager() {
+    RPGMakerInstance.allManagers.forEach { (_, value) ->
+        value.disable()
     }
 }

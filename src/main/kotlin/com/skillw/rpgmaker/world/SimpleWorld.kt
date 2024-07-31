@@ -5,7 +5,7 @@ import com.skillw.rpgmaker.manager.sub.WorldManagerImpl
 import net.minestom.server.MinecraftServer
 import net.minestom.server.instance.Instance
 
-class SimpleWorld(val instance: Instance, val worldInfo: WorldInfo): RPGWorld(instance), Registrable<String> {
+class SimpleWorld(override val instance: Instance, val worldInfo: WorldInfo): RPGWorld, Registrable<String> {
 
     override val key: String = worldInfo.name
 
@@ -14,8 +14,8 @@ class SimpleWorld(val instance: Instance, val worldInfo: WorldInfo): RPGWorld(in
     }
 
     override fun unregister() {
-        MinecraftServer.getInstanceManager().unregisterInstance(instance)
-        WorldManagerImpl.remove(worldInfo.name)
+        super.unregister()
+        unRegisterInstance()
     }
 
 }
