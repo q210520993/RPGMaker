@@ -1,6 +1,5 @@
 package com.skillw.rpgmaker.utils
 
-import com.skillw.rpgmaker.util.instance
 import com.skillw.rpgmaker.utils.ClassUtil.isSingle
 import java.lang.reflect.Method
 

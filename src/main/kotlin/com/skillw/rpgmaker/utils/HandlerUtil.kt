@@ -23,6 +23,7 @@ fun handler(pack: String = "com.skillw.rpgmaker",
     //初始化Awake
     AwakeHandler().register()
 
+    //执行所有的生命周期Load的方法
     AwakeManager[pack]?.isLoadedMethods?.get(AwakeType.Load)?.forEach {
         it.exec()
     }

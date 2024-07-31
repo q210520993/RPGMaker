@@ -1,6 +1,8 @@
 package com.skillw.rpgmaker.system.spark
 
 import com.skillw.rpgmaker.RPGMaker
+import com.skillw.rpgmaker.core.handlers.annotations.CoreHook
+import com.skillw.rpgmaker.core.handlers.hook.ICoreHook
 import me.lucko.spark.common.SparkPlatform
 import me.lucko.spark.common.SparkPlugin
 import me.lucko.spark.common.command.sender.CommandSender
@@ -16,7 +18,8 @@ import java.util.concurrent.CompletableFuture
 import java.util.logging.Level
 import java.util.stream.Stream
 
-object SparkMinestom : SparkPlugin {
+@CoreHook
+object SparkMinestom : SparkPlugin, ICoreHook {
 
     val logger = LoggerFactory.getLogger(SparkMinestom::class.java)!!
 
@@ -80,7 +83,7 @@ object SparkMinestom : SparkPlugin {
         return PlayerPing
     }
 
-    fun hook(rpgMaker: RPGMaker) {
+    override fun hook(rpgMaker: RPGMaker) {
         val platform = SparkPlatform(this)
         SparkPlatform = platform
         SparkPlatform.enable()
