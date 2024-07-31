@@ -1,6 +1,5 @@
 package com.skillw.rpgmaker
 
-import com.skillw.rpgmaker.system.spark.SparkMinestom
 import net.minestom.server.MinecraftServer
 
 
