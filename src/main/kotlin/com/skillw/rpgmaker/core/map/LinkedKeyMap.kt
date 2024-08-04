@@ -12,7 +12,7 @@ import com.skillw.rpgmaker.core.map.LinkedMap
  */
 open class LinkedKeyMap<K : Any, V : Keyable<K>> : LinkedMap<K, V>() {
     private fun getKey(value: V): K {
-        return value.key
+        return value.getKey()
     }
 
     /**
@@ -21,7 +21,7 @@ open class LinkedKeyMap<K : Any, V : Keyable<K>> : LinkedMap<K, V>() {
      * @param value
      */
     open fun register(value: V) {
-        register(value.key, value)
+        register(value.getKey(), value)
     }
 
     /**

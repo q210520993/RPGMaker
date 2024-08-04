@@ -2,7 +2,6 @@ package com.skillw.rpgmaker
 
 import com.skillw.rpgmaker.core.handlers.event.EventPriority
 import com.skillw.rpgmaker.manager.sub.WorldManagerImpl
-import com.skillw.rpgmaker.world.SimpleWorld
 import net.minestom.server.MinecraftServer
 import net.minestom.server.event.Event
 import net.minestom.server.event.EventListener
@@ -34,7 +33,7 @@ object RPGMakerAPI {
      */
     fun <T: Event> addSimpleListener(listener: EventListener<T>, eventPriority: EventPriority): EventNode<Event> {
         val child = MinecraftServer.getGlobalEventHandler().findChildren(eventPriority.name)
-        // 做个判断，以提升性能
+        // 做个判断，以提升性能，微乎其微
         if (child.size == 1) {
             return child[0].addListener(listener)
         }

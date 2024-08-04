@@ -1,4 +1,4 @@
-package com.skillw.rpgmaker.launcher
+package com.skillw.rpgmaker.system.terminal
 
 enum class LoggerColor(val code: String) {
     //Color end string, color reset

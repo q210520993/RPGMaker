@@ -10,7 +10,7 @@ import java.util.function.Function
  */
 open class KeyMap<K : Any, V : Keyable<K>> : BaseMap<K, V>() {
     private fun getKey(value: V): K {
-        return value.key
+        return value.getKey()
     }
 
     override operator fun get(key: K): V? {
@@ -59,7 +59,7 @@ open class KeyMap<K : Any, V : Keyable<K>> : BaseMap<K, V>() {
      * @param value
      */
     open fun register(value: V) {
-        register(value.key, value)
+        register(value.getKey(), value)
     }
 
     /**

@@ -9,7 +9,9 @@ object InstantWorldManager: WorldManager {
 
     private fun readResolve(): Any = InstantWorldManager
 
-    override val key: String = "InstantWorldManager"
+    override fun getKey(): String {
+        return "InstantWorldManager"
+    }
 
     override val priority: Int = 1
     override fun loadWorld(file: File) {

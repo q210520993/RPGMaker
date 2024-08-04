@@ -7,7 +7,6 @@ import com.skillw.rpgmaker.core.handlers.awake.AwakeManager
 import com.skillw.rpgmaker.core.handlers.awake.AwakeType
 import com.skillw.rpgmaker.core.handlers.event.SubscribeEventHandler
 
-@Synchronized
 fun handler(pack: String = "com.skillw.rpgmaker",
             filterPack: Set<String> = emptySet()
 ) {

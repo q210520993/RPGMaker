@@ -16,14 +16,17 @@ import java.util.*
  * @constructor 创建一个 `AwakeHandler` 实例。
  */
 class AwakeHandler(
-    pack: String = "com.skillw.rpgmaker",
+    private val pack: String = "com.skillw.rpgmaker",
     override val autoInit: Boolean = true
 ) : AnnotationHandler<Awake>(), AutoInit, Registrable<String> {
 
     /**
      * 用于标识和组织相关功能模块的键。
      */
-    override val key: String = pack
+
+    override fun getKey(): String {
+        return pack
+    }
 
     /**
      * `AwakeHandler` 处理的注解类型，这里是 `Awake` 注解。

@@ -36,8 +36,7 @@ class RPGMaker(private val minecraftServer: MinecraftServer) {
             "com.skillw.rpgmaker",
             filterPack = setOf(
                 "com.skillw.rpgmaker.server",
-                "com.skillw.rpgmaker.utils",
-                "com.skillw.rpgmaker.world",
+                "com.skillw.rpgmaker.utils"
             )
         )
     }

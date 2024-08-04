@@ -8,5 +8,7 @@ package com.skillw.rpgmaker.core.map.component
  */
 interface Keyable<K> {
     /** Key */
-    val key: K
+
+    fun getKey(): K
+
 }

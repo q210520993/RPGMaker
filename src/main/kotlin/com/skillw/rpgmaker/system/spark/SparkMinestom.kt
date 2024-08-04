@@ -55,15 +55,12 @@ object SparkMinestom : SparkPlugin, ICoreHook {
         return Platform
     }
 
-    override fun log(level: Level, msg: String?) {
-        if (level === Level.INFO) {
-            logger.info(msg)
-        } else if (level === Level.WARNING) {
-            logger.warn(msg)
-        } else if (level === Level.SEVERE) {
-            logger.error(msg)
-        } else {
-            throw IllegalArgumentException(level.name)
+    override fun log(level: Level, msg: String) {
+        when(level) {
+            Level.INFO -> logger.info(msg)
+            Level.WARNING -> logger.warn(msg)
+            Level.SEVERE -> logger.error(msg)
+            else -> throw IllegalArgumentException(level.name)
         }
     }
 

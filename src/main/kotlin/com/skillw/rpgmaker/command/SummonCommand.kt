@@ -10,7 +10,6 @@ import net.minestom.server.command.builder.arguments.ArgumentEnum
 import net.minestom.server.command.builder.arguments.ArgumentType
 import net.minestom.server.command.builder.arguments.minecraft.registry.ArgumentEntityType
 import net.minestom.server.command.builder.condition.Conditions
-import net.minestom.server.coordinate.Pos
 import net.minestom.server.coordinate.Vec
 import net.minestom.server.entity.Entity
 import net.minestom.server.entity.EntityType
@@ -21,7 +20,9 @@ import java.util.function.Supplier
 @AutoRegistry
 object SummonCommand: CommandRegistry, Command("summon") {
 
-    override val key: Command = this
+    override fun getKey(): Command {
+        return this
+    }
 
     var entity: ArgumentEntityType
     var pos: Argument<RelativeVec>

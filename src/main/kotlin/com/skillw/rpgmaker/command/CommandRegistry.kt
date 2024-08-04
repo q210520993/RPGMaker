@@ -7,6 +7,6 @@ import net.minestom.server.command.builder.Command
 interface CommandRegistry: Registrable<Command> {
 
     override fun register() {
-        MinecraftServer.getCommandManager().register(key)
+        MinecraftServer.getCommandManager().register(getKey())
     }
 }

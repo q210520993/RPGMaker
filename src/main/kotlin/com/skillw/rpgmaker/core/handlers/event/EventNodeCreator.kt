@@ -16,7 +16,7 @@ interface EventNodeCreator<T: Event> : Registrable<EventNode<T>> {
      * 将当前实例代表的事件节点添加到全局事件处理器中。
      */
     override fun register() {
-        MinecraftServer.getGlobalEventHandler().addChild(key)
+        MinecraftServer.getGlobalEventHandler().addChild(getKey())
     }
 
 }

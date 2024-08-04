@@ -1,6 +1,6 @@
 package com.skillw.rpgmaker.utils
 
-import com.skillw.rpgmaker.launcher.LoggerColor
+import com.skillw.rpgmaker.system.terminal.LoggerColor
 import org.slf4j.Logger
 
 object LoggerUtil {

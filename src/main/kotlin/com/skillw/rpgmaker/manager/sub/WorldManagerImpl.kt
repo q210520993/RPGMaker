@@ -3,7 +3,7 @@ package com.skillw.rpgmaker.manager.sub
 import com.skillw.rpgmaker.RPGMakerInstance.reg
 import com.skillw.rpgmaker.core.handlers.annotations.AutoRegistry
 import com.skillw.rpgmaker.core.map.KeyMap
-import com.skillw.rpgmaker.launcher.LoggerColor
+import com.skillw.rpgmaker.system.terminal.LoggerColor
 import com.skillw.rpgmaker.utils.ResourceUtil
 import com.skillw.rpgmaker.world.SimpleWorld
 import com.skillw.rpgmaker.world.WorldInfo
@@ -24,7 +24,9 @@ object WorldManagerImpl: WorldManager, KeyMap<String, SimpleWorld>() {
     private fun readResolve(): Any = WorldManagerImpl
     override val priority = -1
 
-    override val key: String = "WorldManager"
+    override fun getKey(): String {
+        return "WorldManager"
+    }
 
     override fun register() {
         reg()

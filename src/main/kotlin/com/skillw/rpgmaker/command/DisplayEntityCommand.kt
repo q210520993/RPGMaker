@@ -17,7 +17,11 @@ import java.util.function.Supplier
 
 @AutoRegistry
 object DisplayEntityCommand: CommandRegistry, Command("DisplayBlock") {
-    override val key: Command = this
+
+    override fun getKey(): Command {
+        return this
+    }
+
     init {
 
         pos = ArgumentType.RelativeVec3("pos").setDefaultValue(Supplier {

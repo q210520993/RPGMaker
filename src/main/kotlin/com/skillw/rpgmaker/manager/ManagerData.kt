@@ -5,7 +5,11 @@ import com.skillw.rpgmaker.core.map.KeyMap
 import com.skillw.rpgmaker.core.map.component.Registrable
 import com.skillw.rpgmaker.util.safe
 
-class ManagerData(override val key: String): KeyMap<String, Manager>(), Registrable<String> {
+class ManagerData(val managerID: String): KeyMap<String, Manager>(), Registrable<String> {
+
+    override fun getKey(): String {
+        return managerID
+    }
 
     private val managers = ArrayList<Manager>()
     private val reloadable = ArrayList<Manager>()

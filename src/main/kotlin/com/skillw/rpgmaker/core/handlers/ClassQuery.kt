@@ -1,6 +1,7 @@
 package com.skillw.rpgmaker.core.handlers
 
 import com.skillw.rpgmaker.core.handlers.Cache.functions
+import com.skillw.rpgmaker.core.handlers.Cache.get
 import com.skillw.rpgmaker.core.handlers.annotations.RAnnotation
 import com.skillw.rpgmaker.core.map.component.Registrable
 import com.skillw.rpgmaker.core.set.WeakHashSet
@@ -9,10 +10,14 @@ import java.lang.reflect.Field
 import java.lang.reflect.Method
 
 open class ClassQuery(
-    pack: String,
+    val pack: String,
     private val filterPackages: Set<String> = emptySet()
 ) : Registrable<String> {
-    override val key: String = pack
+
+    override fun getKey(): String {
+        return pack
+    }
+
     private val classes: Set<Class<*>> = ClassUtil.getClasses(pack).filter { clazz ->
         //过滤
         filterPackages.none { pack ->
@@ -50,7 +55,7 @@ open class ClassQuery(
     }
 
     override fun register() {
-        Cache.register(key, this) { _, value ->
+        Cache.register(getKey(), this) { _, value ->
             functions.addAll(value.handlerPostMethods)
             Cache.classes.addAll(value.handlerPostClasses)
             Cache.fields.addAll(value.handlerPostFields)
