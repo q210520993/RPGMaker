@@ -10,6 +10,11 @@ import java.net.URLDecoder
 import java.util.*
 import java.util.jar.JarFile
 
+/*
+* RPGMaker Utils-Class
+*
+* */
+
 object ClassUtil {
 
     /**

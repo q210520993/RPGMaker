@@ -10,7 +10,7 @@ import net.minestom.server.event.EventNode
  * {@code @AutoRegistry(unsafe = true)} 表示注解无论实现Registrable接口都可以被注册。
  */
 
-@AutoRegistry(unsafe = true)
+@AutoRegistry(ignore = true)
 object Registry {
 
     fun registry() {

@@ -15,49 +15,95 @@ repositories {
 }
 
 dependencies {
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
-    //config
-    implementation("org.yaml:snakeyaml:2.2")
-    implementation("com.typesafe:config:1.4.3")
-    implementation("com.electronwill.night-config:core:3.7.2")
-    implementation("com.electronwill.night-config:toml:3.6.7")
-    implementation("com.electronwill.night-config:json:3.6.7")
-    implementation("com.electronwill.night-config:hocon:3.6.7")
-    implementation("com.electronwill.night-config:core-conversion:6.0.0")
-    implementation("ch.qos.logback:logback-classic:1.5.6")
-    //reflex
-    // 本体
-    implementation("org.tabooproject.reflex:analyser:1.0.23")
-    implementation("org.tabooproject.reflex:fast-instance-getter:1.0.23")
-    implementation("org.tabooproject.reflex:reflex:1.0.23") // 需要 analyser 模块
-    // 本体依赖
-    implementation("org.ow2.asm:asm:9.2")
-    implementation("org.ow2.asm:asm-util:9.2")
-    implementation("org.ow2.asm:asm-commons:9.2")
-    //guava
-    implementation("com.google.guava:guava:21.0")
-    //minestom
-    // https://mvnrepository.com/artifact/net.minestom/minestom-snapshots
-    implementation("net.minestom:minestom-snapshots:edb73f0a5a")
-    implementation("com.github.Minestom:DependencyGetter:v1.0.1")
-    implementation("com.google.protobuf:protobuf-javalite:4.27.1")
-    implementation("net.bytebuddy:byte-buddy-agent:1.14.17")
-    implementation("me.lucko:bytesocks-java-client:1.0-SNAPSHOT") {
+    // 测试依赖项
+    testImplementation(libs.kotlinTest)
+
+    // 配置相关依赖项
+    implementation(libs.snakeyaml)
+    implementation(libs.typesafeConfig)
+    implementation(libs.nightConfigCore)
+    implementation(libs.nightConfigToml)
+    implementation(libs.nightConfigJson)
+    implementation(libs.nightConfigHocon)
+    implementation(libs.nightConfigCoreConversion)
+    implementation(libs.logbackClassic)
+
+    // Reflex 相关依赖项
+    implementation(libs.reflexAnalyser)
+    implementation(libs.reflexFastInstanceGetter)
+    implementation(libs.reflex)
+    implementation(libs.asm)
+    implementation(libs.asmUtil)
+    implementation(libs.asmCommons)
+
+    // Guava 依赖项
+    implementation(libs.guava)
+
+    // Minestom 相关依赖项
+    implementation(libs.minestomSnapshots)
+    implementation(libs.dependencyGetter)
+    implementation(libs.protobufJavalite)
+    implementation(libs.byteBuddyAgent)
+    implementation(libs.bytesocksJavaClient) {
         exclude("slf4j-api")
     }
-    implementation("dev.hollowcube:minestom-ce-extensions:1.2.0")
-    implementation("dev.hollowcube:polar:1.11.1")
+    implementation(libs.minestomCeExtensions)
+    implementation(libs.polar)
+    implementation(libs.sparkApi)
     implementation(fileTree("libs"))
-    //kotlin
-    implementation(kotlin("reflect"))
 
-    implementation("net.kyori:adventure-text-feature-pagination:4.0.0-SNAPSHOT") {
+    // Kotlin 反射
+    implementation(libs.kotlinReflect)
+
+    // Adventure 文本功能分页
+    implementation(libs.adventureTextFeaturePagination) {
         exclude("adventure-api")
     }
 
+    //GraalVM
+    implementation("org.graalvm.polyglot:polyglot:23.1.3")
+    runtimeOnly("org.graalvm.js:js-language:23.1.3")
+    runtimeOnly("org.graalvm.truffle:truffle-runtime:23.1.3")
 
+    //apache
+    implementation(libs.apache.io)
+    implementation("org.jline:jline-reader:3.25.0")
+    implementation("org.jline:jline-terminal:3.25.0")
+    implementation("org.jline:jline-terminal-jna:3.25.0")
+    implementation("org.tinylog:tinylog-api:2.7.0")
+    implementation("org.tinylog:tinylog-impl:2.7.0")
+    implementation("org.fusesource.jansi:jansi:2.4.1")
 
 }
+tasks.withType<ProcessResources> {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+sourceSets {
+    main {
+        resources {
+            srcDirs("src/main/resources")
+        }
+    }
+    test {
+        resources {
+            srcDirs("src/test/resources")
+        }
+    }
+}
+
+
+tasks.build {
+    dependsOn(tasks.shadowJar)
+    group = "rpgmaker build"
+}
+
+tasks.compileJava {
+    options.encoding = "UTF-8"
+    options.compilerArgs.add("-Xpkginfo:always")
+    java.sourceCompatibility = JavaVersion.VERSION_21
+    java.targetCompatibility = JavaVersion.VERSION_21
+}
+
 
 tasks.withType<Jar> {
     manifest {

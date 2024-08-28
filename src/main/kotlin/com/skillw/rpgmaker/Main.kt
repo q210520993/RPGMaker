@@ -1,22 +1,23 @@
 package com.skillw.rpgmaker
 
+import com.skillw.rpgmaker.utils.ResourceUtil.extractResource
 import net.minestom.server.MinecraftServer
-import net.minestom.server.entity.Entity
-import net.minestom.server.utils.time.TimeUnit
+import com.skillw.rpgmaker.module.system.terminal.EasyTerminal
 
 
 fun main() {
-
+    extract()
     val minecraft = MinecraftServer.init()
+    EasyTerminal.start()
+    MinecraftServer.getSchedulerManager().buildShutdownTask {
+        EasyTerminal.stop()
+    }
     val rpgMaker = RPGMaker(minecraft)
     RPGMakerInstance.rpgMaker = rpgMaker
     rpgMaker.init()
+}
 
-    // Schedule player getting out of bed
-    MinecraftServer.getSchedulerManager().buildTask {
-        println("113")
-    }
-        .delay(101, TimeUnit.SERVER_TICK)
-        .schedule()
-
+fun extract() {
+    extractResource("worlds")
+    extractResource("server.conf")
 }

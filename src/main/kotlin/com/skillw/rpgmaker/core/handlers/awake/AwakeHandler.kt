@@ -85,7 +85,7 @@ class AwakeHandler(
     private fun sort() {
         isLoadedMethods.forEach { (_, list) ->
             list.sortBy {
-                it.priority
+                it.getPriority()
             }
         }
     }

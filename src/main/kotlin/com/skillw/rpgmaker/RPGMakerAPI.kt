@@ -1,7 +1,7 @@
 package com.skillw.rpgmaker
 
 import com.skillw.rpgmaker.core.handlers.event.EventPriority
-import com.skillw.rpgmaker.manager.sub.WorldManagerImpl
+import com.skillw.rpgmaker.module.world.manager.WorldManagerImpl
 import net.minestom.server.MinecraftServer
 import net.minestom.server.event.Event
 import net.minestom.server.event.EventListener

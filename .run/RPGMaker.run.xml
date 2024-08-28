@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="RPGMaker" type="Application" factoryName="Application" activateToolWindowBeforeRun="true">
+    <option name="MAIN_CLASS_NAME" value="com.skillw.rpgmaker.MainKt" />
+    <module name="com.skillw.rpgmaker.RPGMaker.main" />
+    <option name="VM_PARAMETERS" value="-Xmx2G -Xms512M" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/TestEnvironment" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

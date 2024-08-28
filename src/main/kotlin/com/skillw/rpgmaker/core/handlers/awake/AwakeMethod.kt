@@ -10,7 +10,10 @@ class AwakeMethod(
     val handler: AwakeHandler
 ): Priority<Float> {
 
-    override val priority: Float = method.getAnnotation(Awake::class.java).priority
+    override fun getPriority(): Float {
+        return method.getAnnotation(Awake::class.java).priority
+    }
+
     var isExec: Boolean = false
         private set
 

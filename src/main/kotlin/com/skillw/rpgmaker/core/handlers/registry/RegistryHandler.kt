@@ -20,7 +20,7 @@ class RegistryHandler(override val autoInit: Boolean = true) : AnnotationHandler
 
     override fun handle() {
         classes.forEach {
-            if (it.getAnnotation(AutoRegistry::class.java).unsafe) {
+            if (it.getAnnotation(AutoRegistry::class.java).ignore) {
                 it.getMethod("registry").invoke(it.instance)
                 return@forEach
             }

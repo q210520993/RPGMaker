@@ -35,7 +35,7 @@ class SubscribeEventHandler :
             val ignoreCancelled = annotation.ignoreCancelled
 
             // 安全地将参数类型转换为 Event 类
-            val eventClass = (function.parameterTypes[0] as? Class<Event>) ?: throw IllegalArgumentException("${function.name} 参数不对")
+            val eventClass = (function.parameterTypes[0] as? Class<Event>) ?: throw IllegalArgumentException("${function.name} 参数不正确")
             // 构建事件监听器
             val listener = EventListener.builder(eventClass).
                 ignoreCancelled(ignoreCancelled).
