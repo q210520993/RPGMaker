@@ -26,7 +26,6 @@ object SparkMinestom : SparkPlugin, ICoreHook {
     lateinit var SparkPlatform: SparkPlatform
     lateinit var command: SparkCommand
 
-
     override fun getVersion(): String {
         return "1.0.0"
     }

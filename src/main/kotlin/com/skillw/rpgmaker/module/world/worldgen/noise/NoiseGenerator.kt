@@ -67,11 +67,11 @@ class NoiseGenerator2(random: Random = Random()): Noise {
                 val offsetX2 = deltaX - 1.0 + 2.0 * unskewFactor
                 val offsetY2 = deltaY - 1.0 + 2.0 * unskewFactor
 
-                val permX = floorX.toInt() and 255
-                val permY = floorY.toInt() and 255
+                val permX = floorX and 255
+                val permY = floorY and 255
                 val grad1 = permutationTable[permX + permutationTable[permY]] % 12
-                val grad2 = permutationTable[permX + i1 + permutationTable[floorY.toInt() + j1]] % 12
-                val grad3 = permutationTable[permX + 1 + permutationTable[floorY.toInt() + 1]] % 12
+                val grad2 = permutationTable[permX + i1 + permutationTable[floorY + j1]] % 12
+                val grad3 = permutationTable[permX + 1 + permutationTable[floorY + 1]] % 12
 
                 // 计算每个角点的贡献
                 var weight1 = 0.5 - deltaX * deltaX - deltaY * deltaY

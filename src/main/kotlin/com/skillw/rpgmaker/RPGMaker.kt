@@ -4,12 +4,14 @@ import com.skillw.rpgmaker.core.handlers.awake.AwakeManager
 import com.skillw.rpgmaker.core.handlers.awake.AwakeType
 import com.skillw.rpgmaker.core.handlers.hook.CoreHookHandler
 import com.skillw.rpgmaker.core.manager.ManagerData
+import com.skillw.rpgmaker.module.player.RPGPlayer
 import com.skillw.rpgmaker.utils.ConfigUtil
 import com.skillw.rpgmaker.utils.handler
 import net.minestom.server.MinecraftServer
 import net.minestom.server.entity.Player
 import net.minestom.server.extras.lan.OpenToLAN
 import java.io.File
+import java.util.UUID
 import java.util.function.Consumer
 
 class RPGMaker(private val minecraftServer: MinecraftServer) {
@@ -40,6 +42,7 @@ class RPGMaker(private val minecraftServer: MinecraftServer) {
     }
     fun init() {
         RPGMakerInstance.serverConf = ConfigUtil.loadFile(File("server.conf"))!!
+        RPGMakerInstance.option = ConfigUtil.loadFile(File("option.conf"))!!
         //加载基本的注解处理
         handlerInit()
         //加载manager
@@ -50,6 +53,13 @@ class RPGMaker(private val minecraftServer: MinecraftServer) {
         if (RPGMakerInstance.serverConf.getBoolean("server.openToLan")) {
             MinecraftServer.process().scheduler().scheduleNextProcess(OpenToLAN::open)
         }
+        //将Player对象转化为自己的RPGPlayer
+        MinecraftServer.getConnectionManager().setPlayerProvider { u,i,p ->
+            RPGPlayer(RPGMakerInstance.luckPerms, u, i, p)
+        }
+
+
+
         //服务器关闭时
         MinecraftServer.getSchedulerManager().buildShutdownTask {
             RPGMakerInstance.allManagers.forEach { (_, value) ->
@@ -72,7 +82,6 @@ class RPGMaker(private val minecraftServer: MinecraftServer) {
                 RPGMakerInstance.serverConf.getInt("server.server-port")
             )
         }
-
         AwakeManager.execAll(AwakeType.Active)
     }
 }

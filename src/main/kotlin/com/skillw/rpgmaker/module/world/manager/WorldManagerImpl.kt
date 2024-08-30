@@ -2,22 +2,30 @@ package com.skillw.rpgmaker.module.world.manager
 
 import com.skillw.rpgmaker.RPGMakerInstance.reg
 import com.skillw.rpgmaker.core.handlers.annotations.AutoRegistry
+import com.skillw.rpgmaker.core.map.BaseMap
 import com.skillw.rpgmaker.core.map.KeyMap
 import com.skillw.rpgmaker.module.system.terminal.LoggerColor
 import com.skillw.rpgmaker.utils.ResourceUtil
 import com.skillw.rpgmaker.module.world.SimpleWorld
 import com.skillw.rpgmaker.module.world.WorldInfo
 import com.skillw.rpgmaker.module.world.WorldNotFoundException
+import com.skillw.rpgmaker.utils.PosUtil
 import net.minestom.server.MinecraftServer
+import net.minestom.server.coordinate.Pos
+import net.minestom.server.instance.Instance
 import net.minestom.server.instance.anvil.AnvilLoader
 import org.slf4j.LoggerFactory
 import taboolib.module.configuration.Configuration
+import taboolib.module.configuration.Type
 import java.io.File
 import java.io.FileNotFoundException
+import java.util.*
 
 
 @AutoRegistry
 object WorldManagerImpl: WorldManager, KeyMap<String, SimpleWorld>() {
+
+    val worldUUIDManager = BaseMap<UUID, SimpleWorld>()
 
     private val logger = LoggerFactory.getLogger(this.javaClass)!!
 
@@ -53,14 +61,18 @@ object WorldManagerImpl: WorldManager, KeyMap<String, SimpleWorld>() {
         // 检查文件是否存在
         file.listFiles() ?: throw FileNotFoundException("File ${file.name} does not exist")
         // 检查是否存在 config.yml 文件
-        val has = file.listFiles()?.filter { it.name == "config.yml" }?.size != 0
+        val has = file.listFiles()?.filter { it.name == "config.conf" }?.size != 0
         if (!has) throw WorldNotFoundException("World Config ${file.name} does not exist")
         // 遍历文件列表
         file.listFiles()?.forEach { theFile ->
-            if(theFile.name == "config.yml") {
-                val config = Configuration.loadFromFile(theFile)
-                // 反序列化配置文件为 WorldInfo 对象
-                worldInfo = Configuration.deserialize<WorldInfo>(config, ignoreConstructor = true)
+            if(theFile.name == "config.conf") {
+                val config = Configuration.loadFromFile(theFile, Type.HOCON)
+
+                val unSave = config.getBoolean("unSave", false)
+                val position = PosUtil.fromString(config.getString("spawnPosition","0.0,0.0,0.0")!!)
+                val name = config.getString("name") ?: throw WorldNotFoundException("World Config ${file.name} does not name")
+
+                worldInfo = WorldInfo(name, unSave, position)
             }
         }
         // 检查 WorldInfo 是否为空
@@ -78,7 +90,6 @@ object WorldManagerImpl: WorldManager, KeyMap<String, SimpleWorld>() {
         WorldManagerImpl.filter {
             !it.value.worldInfo.unSave
         }.forEach {
-
             it.value.instance.saveInstance()
         }
     }

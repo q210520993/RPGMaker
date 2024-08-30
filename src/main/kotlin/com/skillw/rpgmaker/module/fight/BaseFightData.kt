@@ -7,6 +7,6 @@ abstract class BaseFightData(attacker: Entity?, defender: Entity?) {
 
     abstract fun calMessage()
     abstract fun damage(): Damage
-    abstract fun runDamage()
+    abstract fun runDamage(): Boolean
 
 }

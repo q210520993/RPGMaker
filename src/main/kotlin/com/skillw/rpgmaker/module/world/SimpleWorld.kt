@@ -14,6 +14,7 @@ class SimpleWorld(override val instance: Instance, val worldInfo: WorldInfo): RP
 
     override fun register() {
         WorldManagerImpl.register(this)
+        WorldManagerImpl.worldUUIDManager[this.instance.uniqueId] = this
     }
 
     override fun unregister() {

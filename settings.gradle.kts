@@ -46,6 +46,8 @@ dependencyResolutionManagement {
             // apache
             library("apache-io", "commons-io:commons-io:2.16.1")
 
+            //hooks
+
         }
     }
 }

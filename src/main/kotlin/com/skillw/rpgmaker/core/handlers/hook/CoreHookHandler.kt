@@ -48,7 +48,6 @@ object CoreHookHandler : AnnotationHandler<CoreHook>() {
     override fun handle() {
         handleAnnotation()
         classes.forEach { clazz ->
-
             var runnerName = clazz.getAnnotation(CoreHook::class.java).functionName
             //如果实现了ICoreHook接口，哪就自动强绑定为hook方法
             if (clazz.isAssignableFrom(ICoreHook::class.java))
@@ -57,7 +56,7 @@ object CoreHookHandler : AnnotationHandler<CoreHook>() {
             safe {
                 method.invoke(clazz.instance, RPGMakerInstance.rpgMaker)
             }
-            return
+            return@forEach
         }
     }
 }

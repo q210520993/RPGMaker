@@ -12,6 +12,7 @@ repositories {
     maven("https://jitpack.io")
     maven { url = uri("https://repo.tabooproject.org/repository/releases/") }
     maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots/") }
+    maven("https://repo.hypera.dev/snapshots")
 }
 
 dependencies {
@@ -73,6 +74,10 @@ dependencies {
     implementation("org.tinylog:tinylog-api:2.7.0")
     implementation("org.tinylog:tinylog-impl:2.7.0")
     implementation("org.fusesource.jansi:jansi:2.4.1")
+    implementation("me.lucko.luckperms:minestom:5.4-SNAPSHOT")
+    implementation("ninja.leaping.configurate:configurate-hocon:3.7.1")
+    implementation("com.h2database:h2:2.1.214")
+
 
 }
 tasks.withType<ProcessResources> {
