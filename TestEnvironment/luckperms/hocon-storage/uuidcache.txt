@@ -1,2 +1,2 @@
 # LuckPerms UUID lookup cache
-facac934-3c46-4319-845e-2b3b00a8275b:MRYELY
+21e334e9-de95-3e6b-b27d-4683f52fcc1c:MRYELY

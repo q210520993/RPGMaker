@@ -4,7 +4,7 @@ import java.util.Random
 import kotlin.math.sqrt
 
 /**
- * 生成噪声的类，主要用于噪声生成的数学运算。
+ * 生成噪声的类，主要用于噪声生成的数学运算
  */
 class NoiseGenerator2(random: Random = Random()): Noise {
     private val permutationTable: IntArray = IntArray(512)

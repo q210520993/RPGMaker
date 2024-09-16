@@ -23,6 +23,6 @@ fun onJoin(event: AsyncPlayerConfigurationEvent) {
 
 @SubscribeEvent(priority = EventPriority.SERVER)
 fun afterJoin(event: PlayerSpawnEvent) {
-    val pos = WorldManagerImpl.worldUUIDManager[event.instance.uniqueId]?.worldInfo?.spawnPosition!!
+    val pos = WorldManagerImpl.worldUUIDManager[event.instance.uniqueId]?.worldInfo?.spawnPosition ?: return
     event.player.teleport(pos)
 }

@@ -5,6 +5,7 @@ import com.skillw.rpgmaker.core.handlers.awake.AwakeType
 import com.skillw.rpgmaker.core.handlers.hook.CoreHookHandler
 import com.skillw.rpgmaker.core.manager.ManagerData
 import com.skillw.rpgmaker.module.player.RPGPlayer
+import com.skillw.rpgmaker.module.player.RPGUuid
 import com.skillw.rpgmaker.utils.ConfigUtil
 import com.skillw.rpgmaker.utils.handler
 import net.minestom.server.MinecraftServer
@@ -57,9 +58,8 @@ class RPGMaker(private val minecraftServer: MinecraftServer) {
         MinecraftServer.getConnectionManager().setPlayerProvider { u,i,p ->
             RPGPlayer(RPGMakerInstance.luckPerms, u, i, p)
         }
-
-
-
+        //设置玩家的UUIDProvider
+        MinecraftServer.getConnectionManager().setUuidProvider(RPGUuid)
         //服务器关闭时
         MinecraftServer.getSchedulerManager().buildShutdownTask {
             RPGMakerInstance.allManagers.forEach { (_, value) ->
@@ -68,20 +68,11 @@ class RPGMaker(private val minecraftServer: MinecraftServer) {
             MinecraftServer.getConnectionManager().onlinePlayers.forEach(Consumer { player: Player ->
                 // TODO: 保存玩家数据
                 player.kick("Server is closing.")
-                MinecraftServer.getConnectionManager().removePlayer(player.playerConnection)
             })
             if (OpenToLAN.isOpen()) {
                 OpenToLAN.close()
             }
             AwakeManager.execAll(AwakeType.Disable)
         }
-
-        RPGMakerInstance.serverConf.getString("server.server-ip")?.let {
-            minecraftServer.start(
-                it,
-                RPGMakerInstance.serverConf.getInt("server.server-port")
-            )
-        }
-        AwakeManager.execAll(AwakeType.Active)
     }
 }

@@ -15,10 +15,6 @@ object InstantWorldManager: WorldManager {
         return 1
     }
 
-    override fun loadWorld(file: File) {
-        TODO("Not yet implemented")
-    }
-
     override fun register() {
         reg()
     }

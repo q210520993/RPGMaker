@@ -21,8 +21,8 @@ import java.util.concurrent.CompletableFuture
 * */
 
 class RPGPlayer(val luckPerms: LuckPerms, uuid: UUID, username: String, playerConnection: PlayerConnection) : Player(uuid, username, playerConnection) {
-    val MINI_MESSAGE: MiniMessage = MiniMessage.miniMessage()
-    val playerAdapter = luckPerms.getPlayerAdapter(Player::class.java)
+    private val MINI_MESSAGE: MiniMessage = MiniMessage.miniMessage()
+    private val playerAdapter = luckPerms.getPlayerAdapter(Player::class.java)
 
     override fun addPermission(permission: Permission) {
         // this method implements itself as fire-and-forget as LuckPerms
@@ -45,8 +45,7 @@ class RPGPlayer(val luckPerms: LuckPerms, uuid: UUID, username: String, playerCo
      *
      * @param permission the permission to remove
      */
-    @Deprecated("the {@link Permission} object is not used in the LuckPerms implementation"
-    )
+    @Deprecated("the {@link Permission} object is not used in the LuckPerms implementation", ReplaceWith("this.removePermission(permission.permissionName)"))
     override fun removePermission(permission: Permission) {
         // this method implements itself as fire-and-forget as LuckPerms
         // provides futures as responses to permission changes, which
@@ -88,7 +87,7 @@ class RPGPlayer(val luckPerms: LuckPerms, uuid: UUID, username: String, playerCo
      * @param permission the permission to check
      * @return true if the player has the permission
      */
-    @Deprecated("the {@link Permission} object is not used in the LuckPerms implementation"
+    @Deprecated("the {@link Permission} object is not used in the LuckPerms implementation", ReplaceWith("this.hasPermission(permission.permissionName)")
     )
     override fun hasPermission(permission: Permission): Boolean {
         return this.hasPermission(permission.permissionName)
@@ -115,7 +114,7 @@ class RPGPlayer(val luckPerms: LuckPerms, uuid: UUID, username: String, playerCo
      */
     @Deprecated(
         """the {@link PermissionVerifier} interface checks for NBT data, which is not
-      used in the LuckPerms implementation"""
+      used in the LuckPerms implementation""", ReplaceWith("this.hasPermission(permissionName)")
     )
     override fun hasPermission(permissionName: String, permissionVerifier: PermissionVerifier?): Boolean {
         return this.hasPermission(permissionName)

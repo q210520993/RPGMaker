@@ -1,4 +1,4 @@
-package com.skillw.rpgmaker.module.scripts.Types
+package com.skillw.rpgmaker.module.scripts.types
 
 import com.skillw.rpgmaker.module.scripts.FileScript
 import com.skillw.rpgmaker.module.scripts.FileScriptManager
@@ -7,9 +7,9 @@ import org.graalvm.polyglot.Source
 import org.graalvm.polyglot.Value
 import java.io.File
 
-class JsScript(val fileA: File): FileScript {
+open class JsScript(val fileA: File): FileScript {
 
-    lateinit var resultContext: Context
+    private lateinit var resultContext: Context
 
     override fun getFile(): File {
         return fileA
@@ -28,7 +28,7 @@ class JsScript(val fileA: File): FileScript {
     }
 
     override fun getKey(): String {
-        val key = resultContext.getBindings("js").getMember("__FILEOPTION_KEY").asString() ?: getFile().path
+        val key = resultContext.getBindings("js").getMember("__FILEOPTION_KEY")?.asString() ?: return fileA.path
         return key
     }
 
@@ -50,7 +50,6 @@ class JsScript(val fileA: File): FileScript {
 
     override fun run(): Value {
         val result = super.run()
-        register()
         return result
     }
 

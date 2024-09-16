@@ -66,6 +66,7 @@ dependencies {
     runtimeOnly("org.graalvm.js:js-language:23.1.3")
     runtimeOnly("org.graalvm.truffle:truffle-runtime:23.1.3")
 
+
     //apache
     implementation(libs.apache.io)
     implementation("org.jline:jline-reader:3.25.0")
@@ -77,6 +78,7 @@ dependencies {
     implementation("me.lucko.luckperms:minestom:5.4-SNAPSHOT")
     implementation("ninja.leaping.configurate:configurate-hocon:3.7.1")
     implementation("com.h2database:h2:2.1.214")
+
 
 
 }

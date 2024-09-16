@@ -3,43 +3,41 @@ package com.skillw.rpgmaker.module.scripts
 import com.skillw.rpgmaker.RPGMakerInstance
 import com.skillw.rpgmaker.core.handlers.annotations.AutoRegistry
 import com.skillw.rpgmaker.core.manager.Manager
+import com.skillw.rpgmaker.core.manager.Reloadable
 import com.skillw.rpgmaker.core.map.BaseMap
-import com.skillw.rpgmaker.module.scripts.Types.JsScript
-import com.skillw.rpgmaker.utils.ResourceUtil
+import com.skillw.rpgmaker.module.scripts.types.JsScript
 import org.slf4j.LoggerFactory
 import java.io.File
-import kotlin.math.log
 
 @AutoRegistry
-object FileScriptManager: Manager, BaseMap<String, FileScript>() {
+object FileScriptManager: Manager, BaseMap<String, FileScript>(), Reloadable {
 
     private fun readResolve(): Any = FileScriptManager
     val logger = LoggerFactory.getLogger(this::class.java)
 
-    init {
-        val f = File("Scripts")
-        f.listFiles().forEach {
-            if (it.extension == "js") {
-                JsScript(it).run()
-            }
-        }
+    override fun onLoad() {
+        onReload()
     }
 
-    override fun onLoad() {
-        ResourceUtil.extractResource("Scripts")
+    override fun onReload() {
         File("Scripts").listFiles()?.forEach {
             when(it.extension) {
-                "js", "mjs" -> JsScript(it).run()
+                "js", "mjs" -> {
+                    val js = JsScript(it)
+                    js.run()
+                    js.register()
+                }
                 else -> logger.warn("${it.path} 不是一个正经的文件后缀名！")
             }
         }
-        println(this)
     }
 
     override fun register() {
         RPGMakerInstance.rpgMaker.managerData.register(this)
     }
+
     override fun getKey(): String {
         return "FileScriptManager"
     }
+
 }
