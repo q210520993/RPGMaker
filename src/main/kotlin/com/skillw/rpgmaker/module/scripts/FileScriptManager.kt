@@ -5,7 +5,7 @@ import com.skillw.rpgmaker.core.handlers.annotations.AutoRegistry
 import com.skillw.rpgmaker.core.manager.Manager
 import com.skillw.rpgmaker.core.manager.Reloadable
 import com.skillw.rpgmaker.core.map.BaseMap
-import com.skillw.rpgmaker.module.scripts.types.JsScript
+import com.skillw.rpgmaker.module.scripts.Types.JsScript
 import org.slf4j.LoggerFactory
 import java.io.File
 

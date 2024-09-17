@@ -6,6 +6,7 @@ import com.skillw.rpgmaker.core.handlers.hook.CoreHookHandler
 import com.skillw.rpgmaker.core.manager.ManagerData
 import com.skillw.rpgmaker.module.player.RPGPlayer
 import com.skillw.rpgmaker.module.player.RPGUuid
+import com.skillw.rpgmaker.module.system.terminal.EasyTerminal
 import com.skillw.rpgmaker.utils.ConfigUtil
 import com.skillw.rpgmaker.utils.handler
 import net.minestom.server.MinecraftServer
@@ -35,10 +36,6 @@ class RPGMaker(private val minecraftServer: MinecraftServer) {
     private fun handlerInit() {
         handler(
             "com.skillw.rpgmaker",
-            filterPack = setOf(
-                "com.skillw.rpgmaker.server",
-                "com.skillw.rpgmaker.utils"
-            )
         )
     }
     fun init() {
@@ -48,8 +45,6 @@ class RPGMaker(private val minecraftServer: MinecraftServer) {
         handlerInit()
         //加载manager
         managerLoader()
-        //服务端特有(加载服务端模块化插件)
-        CoreHookHandler.handle()
         AwakeManager.execAll(AwakeType.Enable)
         if (RPGMakerInstance.serverConf.getBoolean("server.openToLan")) {
             MinecraftServer.process().scheduler().scheduleNextProcess(OpenToLAN::open)

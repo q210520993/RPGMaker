@@ -6,13 +6,18 @@ import com.skillw.rpgmaker.core.handlers.awake.AwakeHandler
 import com.skillw.rpgmaker.core.handlers.awake.AwakeManager
 import com.skillw.rpgmaker.core.handlers.awake.AwakeType
 import com.skillw.rpgmaker.core.handlers.event.SubscribeEventHandler
+import com.skillw.rpgmaker.core.handlers.hook.CoreHookHandler
+import com.skillw.rpgmaker.dependency.DependenciesHandler
 
 fun handler(pack: String = "com.skillw.rpgmaker",
             filterPack: Set<String> = emptySet()
 ) {
     val query = ClassQuery(pack, filterPack)
     query.register()
-
+    //加载依赖
+    DependenciesHandler()
+    //服务端特有(加载服务端模块化插件)
+    CoreHookHandler.handle()
     //初始化AutoRegistry
     RegistryHandler()
 

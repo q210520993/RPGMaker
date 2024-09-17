@@ -1,4 +1,4 @@
-package com.skillw.rpgmaker.module.scripts.types
+package com.skillw.rpgmaker.module.scripts.Types
 
 import com.skillw.rpgmaker.module.scripts.FileScript
 import com.skillw.rpgmaker.module.scripts.FileScriptManager

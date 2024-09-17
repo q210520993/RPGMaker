@@ -127,7 +127,6 @@ class RPGPlayer(val luckPerms: LuckPerms, uuid: UUID, username: String, playerCo
      * @return true if the player has the permission
      */
     override fun hasPermission(permissionName: String): Boolean {
-        println(1111)
         return this.getPermissionValue(permissionName).asBoolean()
     }
 
